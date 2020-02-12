@@ -11,13 +11,26 @@ namespace PharmacieCodeFirstASPNET.Models
     {
         BddContext Bdd = new BddContext();
 
-        public void AjouterAchat(int idCommande, int idClient, int idStock)
+        public void AjouterAchat(int idCommande, int idClient, int idStock, int quantite)
         {
-            Achat achat = new Achat()
+            Stock stockById = Bdd.Stocks.FirstOrDefault(s => s.Id == idStock);
+            decimal prix = Bdd.Produits.FirstOrDefault(p => p.NomProduit == stockById.NomProduit_stock).Prix_Unite;
+            if (stockById.Quantite_Produit >= quantite)
             {
-                Stock = Bdd.Stocks.FirstOrDefault(s => s.Id == idStock)
-
-            };
+                
+                Achat achat = new Achat()
+                {
+                    Stock = stockById,
+                    Quantite_Totale = quantite,
+                    Prix_Total = prix * quantite
+                };
+                Commande commande = Bdd.Commandes.FirstOrDefault(c => c.Id == idCommande);
+                commande.Client = Bdd.Clients.FirstOrDefault(c => c.Id == idClient);
+                if (commande.Achats == null)
+                    commande.Achats = new List<Achat>();
+                commande.Achats.Add(achat);
+                Bdd.SaveChanges();
+            }
         }
 
         public void AjouterClient(Client client)
@@ -27,6 +40,8 @@ namespace PharmacieCodeFirstASPNET.Models
             client1.Nom = client.Nom;
             client1.Prenom = client.Prenom;
             client1.Telephone = client.Telephone;
+            client1.Email = client.Email;
+            client1.Date_Naissance = client.Date_Naissance;
             client1.Password = EncodeMotDePasse(client.Password);
             Bdd.Clients.Add(client1);
             Bdd.SaveChanges();
@@ -44,6 +59,7 @@ namespace PharmacieCodeFirstASPNET.Models
                 produit1.NomProduit = produit.NomProduit;
                 produit1.Prix_Unite = produit.Prix_Unite;
                 produit1.Quantite = produit.Quantite;
+                produit1.Date_heure_ajout = produit.Date_heure_ajout;
 
                 Bdd.Produits.Add(produit1);
                 //Lorsque le produit est nouveau, on cree directement un nouveau stock
@@ -57,6 +73,7 @@ namespace PharmacieCodeFirstASPNET.Models
                 produit2.NomProduit = produit.NomProduit;
                 produit2.Prix_Unite = produit.Prix_Unite;
                 produit2.Quantite = produit.Quantite;
+                produit2.Date_heure_ajout = produit.Date_heure_ajout;
                 //On recupere le produit dans les stocks ayant le meme nom
                 Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.NomProduit_stock == produit2.NomProduit);
                 produit2.Id = stoc.Id;
@@ -77,7 +94,7 @@ namespace PharmacieCodeFirstASPNET.Models
             Bdd.SaveChanges();
             //recuperer id du nouveau stock et mettre comme foreing key dans produit
             Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.Id == newStock.Id);
-            produit.Stock.Id = stoc.Id;
+            produit.Stock = stoc;
             stoc.NomProduit_stock = produit.NomProduit;
             Bdd.SaveChanges();
         }
@@ -96,7 +113,8 @@ namespace PharmacieCodeFirstASPNET.Models
         }
         public Client Authentifier(Client client)
         {
-            return Bdd.Clients.FirstOrDefault(c => c.Nom == client.Nom && c.Password == EncodeMotDePasse(client.Password));
+            string mdpEncoder = EncodeMotDePasse(client.Password);
+            return Bdd.Clients.FirstOrDefault(c => c.Nom == client.Nom && c.Password == mdpEncoder);
         }
 
      
@@ -117,11 +135,12 @@ namespace PharmacieCodeFirstASPNET.Models
 
         public void ModifierProduit(Produit produit)
         {
-            Produit client1 = Bdd.Produits.FirstOrDefault(c => c.Id == produit.Id);
-            Produit produit1 = new Produit();
+            Produit produit1 = Bdd.Produits.FirstOrDefault(c => c.Id == produit.Id);
+            
             produit1.NomProduit = produit.NomProduit;
             produit1.Prix_Unite = produit.Prix_Unite;
             produit1.Quantite = produit.Quantite;
+            produit1.Date_heure_ajout = produit.Date_heure_ajout;
             Bdd.SaveChanges();
         }
 
@@ -165,7 +184,10 @@ namespace PharmacieCodeFirstASPNET.Models
 
         public bool ProduitExisteDeja(Produit produit)
         {
-            return Bdd.Produits.Any(p => string.Compare(p.NomProduit,produit.NomProduit,StringComparison.CurrentCultureIgnoreCase) ==0);
+            Produit produit1 = Bdd.Produits.FirstOrDefault(p => p.NomProduit == produit.NomProduit);
+            if (produit1 != null)
+                return true;
+            return false;
         }
 
         private string EncodeMotDePasse(string motDePass)
@@ -179,6 +201,34 @@ namespace PharmacieCodeFirstASPNET.Models
             Produit proDelete = Bdd.Produits.FirstOrDefault(p => p.Id == produit.Id);
             Bdd.Produits.Remove(proDelete);
             Bdd.SaveChanges();
+        }
+
+        public int AjouterClientRenvoiId(Client client)
+        {
+            Client client1 = new Client();
+            client1.Nom = client.Nom;
+            client1.Prenom = client.Prenom;
+            client1.Telephone = client.Telephone;
+            client1.Email = client.Email;
+            client1.Date_Naissance = client.Date_Naissance;
+            client1.Password = EncodeMotDePasse(client.Password);
+            Bdd.Clients.Add(client1);
+            Bdd.SaveChanges();
+            return client1.Id;
+        }
+
+        public int AjouterStockId(Produit produit)
+        {
+           
+            Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.NomProduit_stock == produit.NomProduit);
+          
+            return stoc.Id;
+        }
+
+        public Achat achatParIdStoc(int idstock)
+        {
+            Stock sc = Bdd.Stocks.FirstOrDefault(s => s.Id == idstock);
+            return Bdd.Achats.FirstOrDefault(a => a.Stock.Id == sc.Id);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace PharmacieCodeFirstASPNET.Models
         //Méthode concernant le client
         List<Client> ObtenirTousLesClients();
         void AjouterClient(Client client);
-       
+        int AjouterClientRenvoiId(Client client);
         void ModifierClient(Client client);
         Client Authentifier(Client client);
         Client ObtenirClient(int id);
@@ -29,6 +29,7 @@ namespace PharmacieCodeFirstASPNET.Models
         //Méthode concernant les stock
         List<Stock> ObtenirTousLesStock();
         void AjouterStock(Produit produit);
+        int AjouterStockId(Produit produit);
 
 
         //Méthode pour la Commande
@@ -37,6 +38,7 @@ namespace PharmacieCodeFirstASPNET.Models
 
         //Méthode pour l'Achat
 
-        void AjouterAchat(int idCommande, int idClient, int idStock);
+        void AjouterAchat(int idCommande, int idClient, int idStock, int quantite);
+        Achat achatParIdStoc(int idstock);
     }
 }
