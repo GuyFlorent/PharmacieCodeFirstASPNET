@@ -60,6 +60,7 @@ namespace PharmacieCodeFirstASPNET.Models
                 produit1.Prix_Unite = produit.Prix_Unite;
                 produit1.Quantite = produit.Quantite;
                 produit1.Date_heure_ajout = produit.Date_heure_ajout;
+                produit1.Image = produit.Image;
 
                 Bdd.Produits.Add(produit1);
                 //Lorsque le produit est nouveau, on cree directement un nouveau stock
@@ -74,12 +75,14 @@ namespace PharmacieCodeFirstASPNET.Models
                 produit2.Prix_Unite = produit.Prix_Unite;
                 produit2.Quantite = produit.Quantite;
                 produit2.Date_heure_ajout = produit.Date_heure_ajout;
+                produit2.Image = produit.Image;
                 //On recupere le produit dans les stocks ayant le meme nom
                 Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.NomProduit_stock == produit2.NomProduit);
                 produit2.Id = stoc.Id;
                 Bdd.Produits.Add(produit2);
-                UpdateStock(produit2); // Comme c'est un nouveau produit on met à jour le stock
                 Bdd.SaveChanges();
+                UpdateStock(produit2); // Comme c'est un nouveau produit on met à jour le stock
+                
 
             }
         }
@@ -90,13 +93,13 @@ namespace PharmacieCodeFirstASPNET.Models
             newStock.NomProduit_stock = produit.NomProduit;   //recuperation du nom du produit
             newStock.Quantite_Produit = produit.Quantite;
 
-            Bdd.Stocks.Add(newStock);
-            Bdd.SaveChanges();
+          //  Bdd.Stocks.Add(newStock);
+          //  Bdd.SaveChanges();
             //recuperer id du nouveau stock et mettre comme foreing key dans produit
-            Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.Id == newStock.Id);
-            produit.Stock = stoc;
-            stoc.NomProduit_stock = produit.NomProduit;
-            Bdd.SaveChanges();
+          //  Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.Id == newStock.Id);
+            produit.Stock = newStock;
+           // stoc.NomProduit_stock = produit.NomProduit;
+           // Bdd.SaveChanges();
         }
 
         //Mettre à jour le stock de la base de donnée
@@ -114,7 +117,8 @@ namespace PharmacieCodeFirstASPNET.Models
         public Client Authentifier(Client client)
         {
             string mdpEncoder = EncodeMotDePasse(client.Password);
-            return Bdd.Clients.FirstOrDefault(c => c.Nom == client.Nom && c.Password == mdpEncoder);
+            Client client1 = Bdd.Clients.FirstOrDefault(c => c.Email == client.Email && c.Password == mdpEncoder);
+            return client1;
         }
 
      
@@ -135,13 +139,17 @@ namespace PharmacieCodeFirstASPNET.Models
 
         public void ModifierProduit(Produit produit)
         {
-            Produit produit1 = Bdd.Produits.FirstOrDefault(c => c.Id == produit.Id);
-            
-            produit1.NomProduit = produit.NomProduit;
-            produit1.Prix_Unite = produit.Prix_Unite;
-            produit1.Quantite = produit.Quantite;
-            produit1.Date_heure_ajout = produit.Date_heure_ajout;
-            Bdd.SaveChanges();
+            if (ProduitExisteDeja(produit))
+            {
+                Produit produit1 = Bdd.Produits.FirstOrDefault(c => c.Id == produit.Id);
+
+                // produit1.NomProduit = produit.NomProduit;
+                produit1.Prix_Unite = produit.Prix_Unite;
+                produit1.Quantite = produit.Quantite;
+                produit1.Date_heure_ajout = produit.Date_heure_ajout;
+                Bdd.SaveChanges();
+                UpdateStock(produit1);
+            }
         }
 
         public Client ObtenirClient(int id)

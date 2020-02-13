@@ -11,6 +11,6 @@ namespace PharmacieCodeFirstASPNET.Models
         public string NomProduit_stock { get; set; }
         
         public int Quantite_Produit { get; set; }
-        public string Image { get; set; }
+        
     }
 }

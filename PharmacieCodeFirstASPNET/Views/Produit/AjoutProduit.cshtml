@@ -1,0 +1,36 @@
+﻿@model PharmacieCodeFirstASPNET.Models.Produit
+
+@{
+    ViewBag.Title = "Ajouter un Produit";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Ajouter un produit</legend>
+
+        @Html.LabelFor(m => m.NomProduit)
+        @Html.TextBoxFor(m => m.NomProduit)
+        @Html.ValidationMessageFor(m => m.NomProduit)
+        <br />
+        @Html.LabelFor(m => m.Prix_Unite)
+        @Html.TextBoxFor(m => m.Prix_Unite)
+        @Html.ValidationMessageFor(m => m.Prix_Unite)
+        <br />
+        @Html.LabelFor(m => m.Quantite)
+        @Html.TextBoxFor(m => m.Quantite)
+        @Html.ValidationMessageFor(m => m.Quantite)
+        <br />
+        @Html.LabelFor(m => m.Date_heure_ajout)
+        @Html.TextBoxFor(m => m.Date_heure_ajout)
+        @Html.ValidationMessageFor(m => m.Date_heure_ajout)
+        <br />
+        @Html.LabelFor(m => m.Image)
+        @Html.TextBoxFor(m => m.Image)
+        @Html.ValidationMessageFor(m => m.Image)
+        <br />
+        <input type="submit" value="valider" class="btn btn-default" />
+    </fieldset>
+}

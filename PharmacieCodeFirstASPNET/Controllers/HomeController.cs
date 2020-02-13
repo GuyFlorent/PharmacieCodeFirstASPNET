@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PharmacieCodeFirstASPNET.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,22 @@ namespace PharmacieCodeFirstASPNET.Controllers
 {
     public class HomeController : Controller
     {
+        private IDal dal;
+
+        public HomeController(): this(new Dal())
+        {
+
+        }
+
+        public HomeController(IDal dalIoc)
+        {
+            dal = dalIoc;
+        }
         public ActionResult Index()
         {
-            return View();
+            List<Produit> listeProduits = dal.ObtenirTousLesProduits();
+            
+            return View(listeProduits);
         }
 
         public ActionResult About()

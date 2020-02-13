@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PharmacieCodeFirstASPNET.Models;
 
@@ -36,12 +37,24 @@ namespace PharmacieTest
                 Prix_Unite = 12,
                 Date_heure_ajout = "12/03/2015"
             };
+            Produit produit2 = new Produit()
+            {
+                NomProduit = "cofane",
+                Quantite = 5,
+                Prix_Unite = 12,
+                Date_heure_ajout = "12/03/2015"
+            };
 
             dal.AjouterProduit(produit1);
+            dal.AjouterProduit(produit1);
+            dal.AjouterProduit(produit2);
             List<Produit> produits = dal.ObtenirTousLesProduits();
-            
+            List<Stock> stocks = dal.ObtenirTousLesStock();
+
+            Assert.AreEqual(10, stocks[0].Quantite_Produit);
+            Assert.IsNotNull(produits.First().Stock);
             Assert.IsNotNull(produits);
-            Assert.AreEqual(1, produits.Count);
+            Assert.AreEqual(3, produits.Count);
             Assert.AreEqual("Doliprane", produits[0].NomProduit);
             Assert.AreEqual(12, produits[0].Prix_Unite);
             Assert.AreEqual(5, produits[0].Quantite);
@@ -209,9 +222,9 @@ namespace PharmacieTest
 
             dal.AjouterClient(client);
 
-            Client client1 = dal.Authentifier(client);
-            Assert.IsNotNull(client1);
-            Assert.AreEqual("toto", client1.Nom);
+            Client client2 = dal.Authentifier(client);
+            Assert.IsNotNull(client2);
+            Assert.AreEqual("toto", client2.Nom);
         }
 
         [TestMethod]
@@ -235,7 +248,7 @@ namespace PharmacieTest
                 Prenom = "juju",
                 Date_Naissance = "12/01/2020",
                 Password = "bonjour",
-                Email = "wfc",
+                Email = "wfctutu",
                 Telephone = "2545855"
             };
 
