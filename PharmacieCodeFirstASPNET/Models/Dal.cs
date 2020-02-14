@@ -92,6 +92,8 @@ namespace PharmacieCodeFirstASPNET.Models
             Stock newStock = new Stock();
             newStock.NomProduit_stock = produit.NomProduit;   //recuperation du nom du produit
             newStock.Quantite_Produit = produit.Quantite;
+            newStock.Prix_unite_stock = produit.Prix_Unite;
+            newStock.image_stok = produit.Image;
 
           //  Bdd.Stocks.Add(newStock);
           //  Bdd.SaveChanges();
@@ -111,6 +113,9 @@ namespace PharmacieCodeFirstASPNET.Models
             // mettre à jour le stock
 
             stockUpdate.Quantite_Produit = NewStock;
+            //stockUpdate.image_stok = produit.Image;
+            //stockUpdate.Prix_unite_stock = produit.Prix_Unite;
+            
             Bdd.SaveChanges();
 
         }
@@ -147,6 +152,8 @@ namespace PharmacieCodeFirstASPNET.Models
                 produit1.Prix_Unite = produit.Prix_Unite;
                 produit1.Quantite = produit.Quantite;
                 produit1.Date_heure_ajout = produit.Date_heure_ajout;
+                produit1.Image = produit.Image;
+              
                 Bdd.SaveChanges();
                 UpdateStock(produit1);
             }

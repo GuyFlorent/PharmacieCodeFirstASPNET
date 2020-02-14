@@ -1,0 +1,19 @@
+﻿@model  PharmacieCodeFirstASPNET.ViewModel.RechercheProduitViewModel
+
+@{
+    ViewBag.Title = "Recherche Produit";
+}
+
+<h2>Recherche</h2>
+
+@using (Html.BeginForm("Recherche", "Recherche", FormMethod.Get))
+{
+    @Html.TextBoxFor(r =>r.Recherche)
+    <input type="submit" value="Rechercher produit" />
+
+   <div id="resultats">
+       @{ Html.RenderAction("ResultatRecherche", new { rechercheProduitViewModel = Model });}
+   </div>
+    
+}
+

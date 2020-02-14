@@ -33,4 +33,19 @@
         <br />
         <input type="submit" value="valider" class="btn btn-default" />
     </fieldset>
+
+    <h2>Historique d'ajout de produits</h2>
+
+    <div id="HistoProduit">
+        @{
+            Html.RenderAction("HistoriqueProduit");
+                }
+    </div>
+
+    @Ajax.ActionLink("Actualiser Historique", "HistoriqueProduit", new AjaxOptions
+{
+    InsertionMode =InsertionMode.Replace,
+    UpdateTargetId = "HistoProduit",
+    HttpMethod = "GET"
+})
 }

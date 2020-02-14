@@ -22,9 +22,9 @@ namespace PharmacieCodeFirstASPNET.Controllers
         }
         public ActionResult Index()
         {
-            List<Produit> listeProduits = dal.ObtenirTousLesProduits();
+            List<Stock> listestocks = dal.ObtenirTousLesStock();
             
-            return View(listeProduits);
+            return View(listestocks);
         }
 
         public ActionResult About()

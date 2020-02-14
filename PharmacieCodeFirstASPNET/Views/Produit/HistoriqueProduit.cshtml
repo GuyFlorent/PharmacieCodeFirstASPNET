@@ -1,0 +1,28 @@
+﻿@model List<PharmacieCodeFirstASPNET.Models.Produit>
+
+    <table>
+        <tr>
+            <th>Nom</th>
+
+            <th>Image</th>
+            <th>prix</th>
+            <th>quantite</th>
+            <th>date d'ajout</th>
+        </tr>
+        @{
+            foreach (var liste in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelListe => liste.NomProduit)</td>
+                    <td>@Html.DisplayFor(modelListe => liste.Image)</td>
+                    <td>@Html.DisplayFor(modelListe => liste.Prix_Unite)</td>
+                    <td>@Html.DisplayFor(modelListe => liste.Quantite)</td>
+                    <td>@Html.DisplayFor(modelListe => liste.Date_heure_ajout)</td>
+                    
+                    <td>
+                        @Html.ActionLink("Modifier", "ModifierProduit", "Produit", new { id = liste.Id }, null)
+                    </td>
+                </tr>
+            }
+        }
+    </table>  

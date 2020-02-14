@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PharmacieCodeFirstASPNET.Models.Produit>
+﻿@model IEnumerable<PharmacieCodeFirstASPNET.Models.Stock>
 
 @{
     ViewBag.Title = "Home Page";
@@ -36,18 +36,20 @@
     @*<h2>Liste des produits</h2>*@
     <table>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.NomProduit)</th>
+            <th>@Html.DisplayNameFor(m => m.NomProduit_stock)</th>
 
-            <th>@Html.DisplayNameFor(model => model.Prix_Unite)</th>
-            <th>@Html.DisplayNameFor(model => model.Image)</th>
+            <th>@Html.DisplayNameFor(m => m.image_stok)</th>
+            <th>@Html.DisplayNameFor(m => m.Prix_unite_stock)</th>
+            <th>@Html.DisplayNameFor(m => m.Quantite_Produit)</th>
         </tr>
 @{ 
     foreach (var liste in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(modelListe => liste.NomProduit)</td>
-            <td>@Html.DisplayFor(modelListe => liste.Prix_Unite)</td>
-            <td>@Html.DisplayFor(modelListe => liste.Image)</td>
+            <td>@Html.DisplayFor(modelListe => liste.NomProduit_stock)</td>
+            <td>@Html.DisplayFor(modelListe => liste.image_stok)</td>
+            <td>@Html.DisplayFor(modelListe => liste.Prix_unite_stock)</td>
+            <td>@Html.DisplayFor(modelListe => liste.Quantite_Produit)</td>
             <td>
                 @Html.ActionLink("Modifier", "ModifierProduit", "Produit", new { id = liste.Id }, null)
             </td>

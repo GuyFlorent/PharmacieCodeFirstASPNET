@@ -29,6 +29,7 @@ namespace PharmacieCodeFirstASPNET.Controllers
 
         public ActionResult AjoutProduit()
         {
+            
             return View();
         }
 
@@ -38,7 +39,13 @@ namespace PharmacieCodeFirstASPNET.Controllers
             if (!ModelState.IsValid)
                 return View(produit);
            dal.AjouterProduit(produit);
-            return RedirectToAction("Index","Home");
+            return View(produit);
+        }
+
+        public ActionResult HistoriqueProduit()
+        {
+            List<Produit> liste = dal.ObtenirTousLesProduits();
+            return PartialView(liste);
         }
 
         public ActionResult ModifierProduit(int? id)

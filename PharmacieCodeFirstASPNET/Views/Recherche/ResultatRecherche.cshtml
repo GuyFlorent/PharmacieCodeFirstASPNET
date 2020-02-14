@@ -1,0 +1,27 @@
+﻿@model PharmacieCodeFirstASPNET.ViewModel.RechercheProduitViewModel
+
+<p>Les resultats de la rechrche</p>
+ @if (Model.ListeProduits.Count == 0)
+ {
+<p>Pas de résultat trouvé!</p>
+ }
+ else
+ {
+<table>
+    <tr>
+        <th>nom produit</th>
+        <th> image</th>
+        <th> Prix à l'unité</th>
+        <th> Quantité de stock restante</th>
+    </tr>
+    @foreach (var prod in Model.ListeProduits)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelProd => prod.NomProduit_stock)</td>
+            <td>@Html.DisplayFor(modelProd => prod.image_stok)</td>
+            <td>@Html.DisplayFor(modelProd => prod.Prix_unite_stock)</td>
+            <td>@Html.DisplayFor(modelProd => prod.Quantite_Produit)</td>
+        </tr>
+    }
+</table>
+ }
