@@ -1,0 +1,39 @@
+﻿@model PharmacieCodeFirstASPNET.Models.Client
+
+@{
+    ViewBag.Title = "Creer un Compte";
+}
+
+<h2>Creer un Compte</h2>
+
+@using (Html.BeginForm())
+{
+<div>
+
+    @Html.DisplayNameFor(m => m.Nom)
+
+    @Html.TextBoxFor(m => m.Nom)
+    @Html.ValidationMessageFor(m => m.Nom)
+</div>
+
+    <div>
+        @Html.DisplayNameFor(m => m.Email)
+
+        @Html.TextBoxFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+    <div>
+        @Html.DisplayNameFor(m => m.ConfirmEmail)
+
+        @Html.TextBoxFor(m => m.ConfirmEmail)
+        @Html.ValidationMessageFor(m => m.ConfirmEmail)
+    </div>
+    <div>
+        @Html.DisplayNameFor(m => m.Password)
+
+        @Html.TextBoxFor(m => m.Password)
+        @Html.ValidationMessageFor(m=>m.Password)
+    </div>
+
+    <input type="submit" value="Créer" />
+}

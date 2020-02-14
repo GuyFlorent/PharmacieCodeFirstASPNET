@@ -42,6 +42,7 @@ namespace PharmacieCodeFirstASPNET.Models
                 Date_Naissance = "12/01/2020",
                 Password = "bonjour",
                 Email = "wfc",
+                ConfirmEmail = "wfc",
                 Telephone = "2545855"
             });
 
@@ -52,6 +53,7 @@ namespace PharmacieCodeFirstASPNET.Models
                 Date_Naissance = "12/01/2000",
                 Password = "fauxpass",
                 Email = "www",
+                ConfirmEmail = "www",
                 Telephone = "2545855256"
             });
 

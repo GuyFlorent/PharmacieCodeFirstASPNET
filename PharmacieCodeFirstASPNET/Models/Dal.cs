@@ -225,6 +225,7 @@ namespace PharmacieCodeFirstASPNET.Models
             client1.Prenom = client.Prenom;
             client1.Telephone = client.Telephone;
             client1.Email = client.Email;
+            client1.ConfirmEmail = client.ConfirmEmail;
             client1.Date_Naissance = client.Date_Naissance;
             client1.Password = EncodeMotDePasse(client.Password);
             Bdd.Clients.Add(client1);
@@ -246,6 +247,12 @@ namespace PharmacieCodeFirstASPNET.Models
             return Bdd.Achats.FirstOrDefault(a => a.Stock.Id == sc.Id);
         }
 
-        
+        public bool EmailClienExiste(Client client)
+        {
+            Client cli = Bdd.Clients.FirstOrDefault(m => m.Email == client.Email);
+                if(cli == null)
+                return false;
+            return true;
+        }
     }
 }

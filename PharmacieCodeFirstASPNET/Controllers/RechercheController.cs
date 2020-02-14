@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace PharmacieCodeFirstASPNET.Controllers
 {
+    [Authorize]
     public class RechercheController : Controller
     {
         private IDal dal;

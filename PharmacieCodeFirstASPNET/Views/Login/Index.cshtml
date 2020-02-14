@@ -1,0 +1,43 @@
+﻿@model PharmacieCodeFirstASPNET.ViewModel.ClientViewModel
+
+@{
+    ViewBag.Title = "Connexion";
+}
+
+<h2>Connexion</h2>
+
+@if (Model.Authentfie)
+{
+    <h3>
+        Vous êtes déja connceté au nom:
+        @Model.client.Nom
+    </h3>
+    @Html.ActionLink("Voulez vous vous déconnecter?", "Deconnexion")
+}
+else
+{
+    <p> Veuillez vous connecter :</p>
+    <br />
+    using (Html.BeginForm())
+    {
+        <div>
+            @Html.DisplayNameFor(m => m.client.Email)
+
+            @Html.TextBoxFor(m => m.client.Email)
+            @Html.ValidationMessageFor(m=>m.client.Email)
+        </div>
+        <div>
+            @Html.DisplayNameFor(m => m.client.Password)
+
+            @Html.TextBoxFor(m => m.client.Password)
+
+            @Html.ValidationMessageFor(m => m.client.Password)
+        </div>
+        <input type="submit" value="Se Connecter" />
+        <dl>
+            <dd>Pas de compte?</dd>
+        </dl>
+        <br />
+        @Html.ActionLink("Creer un Compte en 2 minutes", "CreerCompte")
+    }
+}

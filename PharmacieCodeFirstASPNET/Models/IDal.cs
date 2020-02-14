@@ -16,6 +16,7 @@ namespace PharmacieCodeFirstASPNET.Models
         Client Authentifier(Client client);
         Client ObtenirClient(int id);
         Client ObtenirClient(string idstr);
+        bool EmailClienExiste(Client client);
 
 
         //Méthode concernant les produits
@@ -27,7 +28,7 @@ namespace PharmacieCodeFirstASPNET.Models
        
 
 
-        //Méthode concernant les stock
+        //Méthode concernant les stocks
         List<Stock> ObtenirTousLesStock();
         void AjouterStock(Produit produit);
         int AjouterStockId(Produit produit);
