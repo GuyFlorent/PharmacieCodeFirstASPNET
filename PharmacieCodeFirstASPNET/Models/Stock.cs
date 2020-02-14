@@ -15,7 +15,7 @@ namespace PharmacieCodeFirstASPNET.Models
         public string image_stok { get; set; }
         [Display(Name = "Prix à l'unité")]
         public decimal Prix_unite_stock { get; set; }
-        [Display(Name = "Quantité restante")]
+        [Display(Name = "Quantitée stock restante")]
         public int Quantite_Produit { get; set; }
         
     }

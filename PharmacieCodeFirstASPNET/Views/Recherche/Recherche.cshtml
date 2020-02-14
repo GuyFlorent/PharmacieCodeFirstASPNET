@@ -6,9 +6,17 @@
 
 <h2>Recherche</h2>
 
-@using (Html.BeginForm("Recherche", "Recherche", FormMethod.Get))
+@using (Ajax.BeginForm("ResultatRecherche", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "resultats",
+    OnFailure ="ErreurRecherche",
+    LoadingElementId = "chargement"
+}))
 {
     @Html.TextBoxFor(r =>r.Recherche)
+    <img id="chargement" src="~/Content/Image/ajax-loader (1).gif" style="display:none" alt="Chargement en cours..." />
     <input type="submit" value="Rechercher produit" />
 
    <div id="resultats">
@@ -17,3 +25,8 @@
     
 }
 
+<script type="text/javascript">
+    function ErreurRecherche() {
+        $("#resultats").html("Une erreur s'est produite lors de la recherche, veuillez réessayer ...");
+    }
+</script>

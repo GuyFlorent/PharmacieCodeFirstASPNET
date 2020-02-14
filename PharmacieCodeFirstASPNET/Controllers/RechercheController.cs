@@ -3,6 +3,7 @@ using PharmacieCodeFirstASPNET.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -36,9 +37,15 @@ namespace PharmacieCodeFirstASPNET.Controllers
         public ActionResult ResultatRecherche(RechercheProduitViewModel rechercheProduitViewModel)
         {
             if (!string.IsNullOrWhiteSpace(rechercheProduitViewModel.Recherche))
+            {
+
                 rechercheProduitViewModel.ListeProduits = dal.ObtenirTousLesStock().Where(r => r.NomProduit_stock.ToLower().Contains(rechercheProduitViewModel.Recherche.ToLower())).ToList();
+                Thread.Sleep(1000);
+            }
             else
+            {
                 rechercheProduitViewModel.ListeProduits = new List<Stock>();
+            }
             return PartialView(rechercheProduitViewModel);
         }
     }

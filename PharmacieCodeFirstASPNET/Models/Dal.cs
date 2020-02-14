@@ -245,5 +245,7 @@ namespace PharmacieCodeFirstASPNET.Models
             Stock sc = Bdd.Stocks.FirstOrDefault(s => s.Id == idstock);
             return Bdd.Achats.FirstOrDefault(a => a.Stock.Id == sc.Id);
         }
+
+        
     }
 }

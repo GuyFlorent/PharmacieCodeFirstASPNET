@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+   
     <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <title>@ViewBag.Title - Ma PHARMACIE JE SUIS</title>
     @Styles.Render("~/Content/css")
@@ -27,7 +28,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("Ajouter les produits", "AjoutProduit", "Produit")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Recherche produit", "Recherche", "Recherche")</li>
                 </ul>
             </div>
         </div>

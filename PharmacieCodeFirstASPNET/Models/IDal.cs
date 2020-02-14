@@ -24,6 +24,7 @@ namespace PharmacieCodeFirstASPNET.Models
         void ModifierProduit(Produit produit);
         bool ProduitExisteDeja(Produit produit);
         void supprimerProduit(Produit produit);
+       
 
 
         //Méthode concernant les stock

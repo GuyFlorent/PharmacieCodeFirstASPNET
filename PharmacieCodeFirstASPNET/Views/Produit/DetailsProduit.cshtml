@@ -1,0 +1,39 @@
+﻿@model PharmacieCodeFirstASPNET.Models.Produit
+
+@{
+    ViewBag.Title = "Details Produit";
+}
+
+<h2>Details du produit</h2>
+
+<div>
+    <h4>Produit</h4>
+    <br />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.Image)</dt>
+
+        <dd>@Html.DisplayFor(m => m.Image)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.NomProduit)</dt>
+
+        <dd>@Html.DisplayFor(m => m.NomProduit)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Prix_Unite)</dt>
+
+        <dd>@Html.DisplayFor(m => m.Prix_Unite)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Quantite)</dt>
+
+        <dd>@Html.DisplayFor(m => m.Quantite)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Date_heure_ajout)</dt>
+
+        <dd>@Html.DisplayFor(m => m.Date_heure_ajout)</dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Modifier", "ModifierProduit", new { id = Model.Id})
+    @Html.ActionLink("Retour à l'acceuil", "Index","Home")
+</p>

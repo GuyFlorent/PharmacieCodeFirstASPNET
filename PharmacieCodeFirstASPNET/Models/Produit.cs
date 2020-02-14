@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace PharmacieCodeFirstASPNET.Models
 {
@@ -12,6 +13,7 @@ namespace PharmacieCodeFirstASPNET.Models
         public int Id { get; set; }
         [Required]
         [Display(Name = "Nom du produit")]
+        [Remote("VerifProduitExist","Produit", ErrorMessage = "Ce Nom de produit existe déja! Le stock sera incrémeté")]
         public string NomProduit { get; set; }
         [Required]
         [Display(Name = "Prix à l'unité")]

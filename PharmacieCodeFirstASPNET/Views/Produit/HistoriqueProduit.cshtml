@@ -1,13 +1,13 @@
-﻿@model List<PharmacieCodeFirstASPNET.Models.Produit>
+﻿@model IEnumerable<PharmacieCodeFirstASPNET.Models.Produit>
 
-    <table>
+    <table class="table">
         <tr>
-            <th>Nom</th>
+            <th>@Html.DisplayNameFor(m=>m.NomProduit)</th>
 
-            <th>Image</th>
-            <th>prix</th>
-            <th>quantite</th>
-            <th>date d'ajout</th>
+            <th>@Html.DisplayNameFor(m => m.Image)</th>
+            <th>@Html.DisplayNameFor(m => m.Prix_Unite)</th>
+            <th>@Html.DisplayNameFor(m => m.Quantite)</th>
+            <th>@Html.DisplayNameFor(m => m.Date_heure_ajout)</th>
         </tr>
         @{
             foreach (var liste in Model)
@@ -21,6 +21,8 @@
                     
                     <td>
                         @Html.ActionLink("Modifier", "ModifierProduit", "Produit", new { id = liste.Id }, null)
+                        @Html.ActionLink("Détails", "DetailsProduit", "Produit", new { id = liste.Id }, null)
+                        @Html.ActionLink("Supprimer", "SupprimerProduit", "Produit", new { id = liste.Id }, null)
                     </td>
                 </tr>
             }

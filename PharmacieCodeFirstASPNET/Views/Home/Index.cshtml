@@ -32,9 +32,9 @@
     </div>
 </div>*@
 
-<div class="table">
+<div >
     @*<h2>Liste des produits</h2>*@
-    <table>
+    <table class="table">
         <tr>
             <th>@Html.DisplayNameFor(m => m.NomProduit_stock)</th>
 
@@ -50,9 +50,7 @@
             <td>@Html.DisplayFor(modelListe => liste.image_stok)</td>
             <td>@Html.DisplayFor(modelListe => liste.Prix_unite_stock)</td>
             <td>@Html.DisplayFor(modelListe => liste.Quantite_Produit)</td>
-            <td>
-                @Html.ActionLink("Modifier", "ModifierProduit", "Produit", new { id = liste.Id }, null)
-            </td>
+            
         </tr>
         }
     }

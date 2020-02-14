@@ -36,10 +36,22 @@ namespace PharmacieCodeFirstASPNET.Controllers
         [HttpPost]
         public ActionResult AjoutProduit(Produit produit)
         {
+            if (dal.ProduitExisteDeja(produit))
+            {
+
+                ModelState.AddModelError("NomProduit", "Ce Nom de produit existe déja! Le stock sera incrémeté");
+                return View(produit);
+            }
             if (!ModelState.IsValid)
                 return View(produit);
            dal.AjouterProduit(produit);
             return View(produit);
+        }
+
+        public JsonResult VerifProduitExist(Produit produit)
+        {
+            bool result = !dal.ProduitExisteDeja(produit);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult HistoriqueProduit()
@@ -57,7 +69,7 @@ namespace PharmacieCodeFirstASPNET.Controllers
             Produit produit = dal.ObtenirTousLesProduits().FirstOrDefault(p => p.Id == id);
 
             if (produit == null)
-                return View("Error");
+                return HttpNotFound();
             return View(produit);
         }
 
@@ -67,6 +79,40 @@ namespace PharmacieCodeFirstASPNET.Controllers
         {
             dal.ModifierProduit(produit);
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult DetailsProduit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Produit produit = dal.ObtenirTousLesProduits().FirstOrDefault(p => p.Id == id);
+
+            if (produit == null)
+                return HttpNotFound();
+            return View(produit);
+        }
+
+        public ActionResult SupprimerProduit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Produit produit = dal.ObtenirTousLesProduits().FirstOrDefault(p => p.Id == id);
+
+            if (produit == null)
+                return HttpNotFound();
+            return View(produit);
+        }
+
+        [HttpPost]
+
+        public ActionResult SupprimerProduit(Produit produit)
+        {
+            dal.supprimerProduit(produit);
+            return RedirectToAction("AjoutProduit");
         }
     }
 }
