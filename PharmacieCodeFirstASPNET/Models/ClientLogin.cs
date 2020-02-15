@@ -7,20 +7,18 @@ using System.Web.Mvc;
 
 namespace PharmacieCodeFirstASPNET.Models
 {
-    public class Client
+    public class ClientLogin
     {
-      
-
         public int Id { get; set; }
-        // [Required(ErrorMessage = "Le Nom ne doit pas être vide")]
+        [Required(ErrorMessage = "Le Nom ne doit pas être vide")]
 
         public string Nom { get; set; }
         [Display(Name = "Prénom")]
         public string Prenom { get; set; }
         [Required(ErrorMessage = "L'Email ne doit pas être vide")]
-        //[Remote("verifEmail", "Login", ErrorMessage = "email existe deja !!!!")]
+        [Remote("verifEmail", "Login", ErrorMessage = "email existe deja !!!!")]
         public string Email { get; set; }
-      //  [System.ComponentModel.DataAnnotations.Compare("Email", ErrorMessage = "Email n'est pas identique")]
+        [System.ComponentModel.DataAnnotations.Compare("Email", ErrorMessage = "Email n'est pas identique")]
         [Display(Name = "Confiramation Email")]
         public string ConfirmEmail { get; set; }
         [Required(ErrorMessage = "Le Mot de passe ne doit pas être vide")]

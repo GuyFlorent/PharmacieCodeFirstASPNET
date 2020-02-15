@@ -11,12 +11,12 @@ namespace PharmacieCodeFirstASPNET.Models
         //Méthode concernant le client
         List<Client> ObtenirTousLesClients();
         void AjouterClient(Client client);
-        int AjouterClientRenvoiId(Client client);
+        int AjouterClientRenvoiId(string nom, string prenom, string email, string confirmEmail, string date_Naissance, string password, string telephone);
         void ModifierClient(Client client);
         Client Authentifier(Client client);
         Client ObtenirClient(int id);
         Client ObtenirClient(string idstr);
-        bool EmailClienExiste(Client client);
+        bool EmailClienExiste(string Email);
 
 
         //Méthode concernant les produits
@@ -25,7 +25,7 @@ namespace PharmacieCodeFirstASPNET.Models
         void ModifierProduit(Produit produit);
         bool ProduitExisteDeja(Produit produit);
         void supprimerProduit(Produit produit);
-       
+
 
 
         //Méthode concernant les stocks

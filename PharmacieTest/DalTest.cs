@@ -303,7 +303,7 @@ namespace PharmacieTest
                 Telephone = "2545855"
             };
 
-            int idClient = dal.AjouterClientRenvoiId(client1);
+            int idClient = dal.AjouterClientRenvoiId(client1.Nom, client1.Prenom, client1.Email, client1.ConfirmEmail, client1.Date_Naissance, client1.Password, client1.Telephone);
 
             Produit produit1 = new Produit()
             {

@@ -218,20 +218,7 @@ namespace PharmacieCodeFirstASPNET.Models
             Bdd.SaveChanges();
         }
 
-        public int AjouterClientRenvoiId(Client client)
-        {
-            Client client1 = new Client();
-            client1.Nom = client.Nom;
-            client1.Prenom = client.Prenom;
-            client1.Telephone = client.Telephone;
-            client1.Email = client.Email;
-            client1.ConfirmEmail = client.ConfirmEmail;
-            client1.Date_Naissance = client.Date_Naissance;
-            client1.Password = EncodeMotDePasse(client.Password);
-            Bdd.Clients.Add(client1);
-            Bdd.SaveChanges();
-            return client1.Id;
-        }
+       
 
         public int AjouterStockId(Produit produit)
         {
@@ -247,12 +234,27 @@ namespace PharmacieCodeFirstASPNET.Models
             return Bdd.Achats.FirstOrDefault(a => a.Stock.Id == sc.Id);
         }
 
-        public bool EmailClienExiste(Client client)
+        public bool EmailClienExiste(string Email)
         {
-            Client cli = Bdd.Clients.FirstOrDefault(m => m.Email == client.Email);
+            Client cli = Bdd.Clients.FirstOrDefault(m => m.Email == Email);
                 if(cli == null)
                 return false;
             return true;
+        }
+
+        public int AjouterClientRenvoiId(string nom, string prenom, string email, string confirmEmail, string date_Naissance, string password, string telephone)
+        {
+            Client client1 = new Client();
+            client1.Nom = nom;
+            client1.Prenom = prenom;
+            client1.Telephone = telephone;
+            client1.Email = email;
+            client1.ConfirmEmail = confirmEmail;
+            client1.Date_Naissance = date_Naissance;
+            client1.Password = EncodeMotDePasse(password);
+            Bdd.Clients.Add(client1);
+            Bdd.SaveChanges();
+            return client1.Id;
         }
     }
 }

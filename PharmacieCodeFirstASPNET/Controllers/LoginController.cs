@@ -34,7 +34,6 @@ namespace PharmacieCodeFirstASPNET.Controllers
         }
 
         [HttpPost]
-
         public ActionResult Index(ClientViewModel clientView, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -57,22 +56,22 @@ namespace PharmacieCodeFirstASPNET.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreerCompte(Client client)
+        public ActionResult CreerCompte(ClientLogin client)
         {
             if (ModelState.IsValid)
             {
-                int id = dal.AjouterClientRenvoiId(client);
+                int id = dal.AjouterClientRenvoiId(client.Nom, client.Prenom,client.Email,client.ConfirmEmail,client.Date_Naissance,client.Password,client.Telephone);
                 FormsAuthentication.SetAuthCookie(id.ToString(), false);
                 return Redirect("/");
             }
             return View(client);
         }
 
-        //public JsonResult verifEmail(Client client)
-        //{
-        //    bool result = !dal.EmailClienExiste(client);
-        //    return Json(result, JsonRequestBehavior.AllowGet);
-        //}
+        public JsonResult verifEmail(ClientLogin client)
+        {
+            bool result = !dal.EmailClienExiste(client.Email);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Deconnexion()
         {
             FormsAuthentication.SignOut();
