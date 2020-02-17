@@ -79,11 +79,12 @@ namespace PharmacieCodeFirstASPNET.Models
                 produit2.Image = produit.Image;
                 //On recupere le produit dans les stocks ayant le meme nom
                 Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.NomProduit_stock == produit2.NomProduit);
-                produit2.Id = stoc.Id;
+                produit2.Stock = stoc;
                 Bdd.Produits.Add(produit2);
+               
                 Bdd.SaveChanges();
                 UpdateStock(produit2); // Comme c'est un nouveau produit on met à jour le stock
-                
+
 
             }
         }
@@ -102,7 +103,7 @@ namespace PharmacieCodeFirstASPNET.Models
           //  Stock stoc = Bdd.Stocks.FirstOrDefault(s => s.Id == newStock.Id);
             produit.Stock = newStock;
            // stoc.NomProduit_stock = produit.NomProduit;
-           // Bdd.SaveChanges();
+            Bdd.SaveChanges();
         }
 
         //Mettre à jour le stock de la base de donnée
@@ -136,14 +137,20 @@ namespace PharmacieCodeFirstASPNET.Models
         public void ModifierClient(Client client)
         {
             Client client1 = Bdd.Clients.FirstOrDefault(c => c.Id == client.Id);
+            string ancienPassword = client1.Password;
+            
             string newpass = EncodeMotDePasse(client.Password);
-            client1.Nom = client.Nom;
-            client1.Prenom = client.Prenom;
-            client1.Telephone = client.Telephone;
-            client.ConfirmEmail = client.ConfirmEmail;
-            client1.Date_Naissance = client.Date_Naissance;
-           // client1.Password = newpass;
-            Bdd.SaveChanges();
+            if (client1.Password == null)
+            {
+
+                client1.Nom = client.Nom;
+                client1.Prenom = client.Prenom;
+                client1.Telephone = client.Telephone;
+                client.ConfirmEmail = client.ConfirmEmail;
+                client1.Date_Naissance = client.Date_Naissance;
+                client1.Password = ancienPassword;
+                Bdd.SaveChanges();
+            }
         }
 
         public void ModifierProduit(Produit produit)
@@ -264,14 +271,20 @@ namespace PharmacieCodeFirstASPNET.Models
         public void ModifierClient(int id,string nom, string prenom, string email, string confirmEmail, string date_Naissance, string password, string telephone)
         {
             Client client1 = Bdd.Clients.FirstOrDefault(c => c.Id == id);
-            client1.Nom = nom;
-            client1.Prenom = prenom;
-            client1.Telephone = telephone;
-            client1.Password = password;
-            client1.Email = email;
-            client1.ConfirmEmail = confirmEmail;
-            client1.Date_Naissance = date_Naissance;
-            Bdd.SaveChanges();
+            string ancienPassword = client1.Password;
+
+            string newpass = EncodeMotDePasse(password);
+            if (password == null)
+            {
+                client1.Nom = nom;
+                client1.Prenom = prenom;
+                client1.Telephone = telephone;
+                client1.Password = ancienPassword;
+                client1.Email = email;
+                client1.ConfirmEmail = confirmEmail;
+                client1.Date_Naissance = date_Naissance;
+                Bdd.SaveChanges();
+            }
         }
 
         public bool MotDePassCorrect(string password)

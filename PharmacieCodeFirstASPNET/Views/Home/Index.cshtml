@@ -50,7 +50,12 @@
             <td>@Html.DisplayFor(modelListe => liste.image_stok)</td>
             <td>@Html.DisplayFor(modelListe => liste.Prix_unite_stock) €</td>
             <td>@Html.DisplayFor(modelListe => liste.Quantite_Produit)</td>
-            
+            <td>@using (Html.BeginForm("Index","Commande",FormMethod.Post))
+            {
+                <input type="submit" value="Passer la commande" class="btn btn-default"/>
+            }
+            </td>
+             
         </tr>
         }
     }

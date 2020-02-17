@@ -36,23 +36,23 @@ namespace PharmacieCodeFirstASPNET.Controllers
         [HttpPost]
         public ActionResult AjoutProduit(Produit produit)
         {
-            if (dal.ProduitExisteDeja(produit))
-            {
+          
+                if (!ModelState.IsValid)
+                {
+                    return View(produit);
+                }
+                    
+                dal.AjouterProduit(produit);
+                return View(produit);
+          
 
-                ModelState.AddModelError("NomProduit", "Ce Nom de produit existe déja! Le stock sera incrémeté");
-                return View(produit);
-            }
-            if (!ModelState.IsValid)
-                return View(produit);
-           dal.AjouterProduit(produit);
-            return View(produit);
         }
 
-        public JsonResult VerifProduitExist(Produit produit)
-        {
-            bool result = !dal.ProduitExisteDeja(produit);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult VerifProduitExist(Produit produit)
+        //{
+        //    bool result = dal.ProduitExisteDeja(produit);
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
 
         public ActionResult HistoriqueProduit()
         {

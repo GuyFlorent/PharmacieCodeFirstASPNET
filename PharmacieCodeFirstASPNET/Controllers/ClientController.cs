@@ -1,4 +1,5 @@
 ﻿using PharmacieCodeFirstASPNET.Models;
+using PharmacieCodeFirstASPNET.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,17 +41,29 @@ namespace PharmacieCodeFirstASPNET.Controllers
             Client client = dal.ObtenirTousLesClients().FirstOrDefault(c => c.Id == id);
             if (client == null)
                 return HttpNotFound();
-            return View(client);
+            ClientModification client1 = new ClientModification()
+            {
+                Id = client.Id,
+                Nom = client.Nom,
+                Prenom = client.Prenom,
+                Email = client.Email,
+          
+                ConfirmEmail = client.ConfirmEmail,
+                Password = client.Password,
+                Date_Naissance = client.Date_Naissance,
+                Telephone = client.Telephone
+            };
+            return View(client1);
         }
 
         [HttpPost]
 
-        public ActionResult ModifierClient(Client client)
+        public ActionResult ModifierClient(ClientModification client)
         {
             if (ModelState.IsValid)
             {
-                dal.ModifierClient(client);
-                // dal.ModifierClient(client.Id, client.Nom, client.Prenom, client.Email, client.ConfirmEmail, client.Date_Naissance, client.Password,client.Telephone);
+                //dal.ModifierClient(client);
+                dal.ModifierClient(client.Id, client.Nom, client.Prenom, client.Email, client.ConfirmEmail, client.Date_Naissance, client.Password,client.Telephone);
                 return RedirectToAction("Index");
             }
             else return View(client);
