@@ -13,10 +13,14 @@ namespace PharmacieCodeFirstASPNET.Models
         void AjouterClient(Client client);
         int AjouterClientRenvoiId(string nom, string prenom, string email, string confirmEmail, string date_Naissance, string password, string telephone);
         void ModifierClient(Client client);
+        void ModifierClient(int id,string nom, string prenom, string email, string confirmEmail, string date_Naissance, string password, string telephone);
+        void ModifierMdp(int id, string AncienPass, string NouveauPass);
         Client Authentifier(Client client);
         Client ObtenirClient(int id);
         Client ObtenirClient(string idstr);
         bool EmailClienExiste(string Email);
+        bool MotDePassClienExiste(int id, string pass);
+        bool MotDePassCorrect(string password);
 
 
         //Méthode concernant les produits

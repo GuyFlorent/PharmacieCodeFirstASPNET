@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProduitController.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Models\Achat.cs" />
     <Compile Include="Models\BddContext.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientPassword.cs" />
     <Compile Include="Models\Commande.cs" />
     <Compile Include="Models\Dal.cs" />
     <Compile Include="Models\IDal.cs" />
@@ -197,6 +199,9 @@
     <Content Include="Views\Produit\SupprimerProduit.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\CreerCompte.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\ModifierClient.cshtml" />
+    <Content Include="Views\Client\ModifierPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

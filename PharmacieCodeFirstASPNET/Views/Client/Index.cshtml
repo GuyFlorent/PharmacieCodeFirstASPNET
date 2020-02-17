@@ -1,0 +1,75 @@
+﻿@model PharmacieCodeFirstASPNET.Models.Client
+
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>Informations personnelles</h2>
+
+<div>
+    <h4>Client</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prenom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.ConfirmEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConfirmEmail)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date_Naissance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_Naissance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifier les informations", "ModifierClient", new { id = Model.Id }) |
+    @Html.ActionLink("Retour à la listes", "Index", "Home")|
+    @Html.ActionLink("Deconnexion", "Deconnexion", "Login", null , new {@class= "btn btn-primary" })
+</p>

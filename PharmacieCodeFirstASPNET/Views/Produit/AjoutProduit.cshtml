@@ -10,41 +10,63 @@
 {
     <fieldset>
         <legend>Ajouter un produit</legend>
-
-        @Html.LabelFor(m => m.NomProduit)
-        @Html.TextBoxFor(m => m.NomProduit)
-        @Html.ValidationMessageFor(m => m.NomProduit)
-        <br />
-        @Html.LabelFor(m => m.Prix_Unite)
-        @Html.TextBoxFor(m => m.Prix_Unite)
-        @Html.ValidationMessageFor(m => m.Prix_Unite)
-        <br />
-        @Html.LabelFor(m => m.Quantite)
-        @Html.TextBoxFor(m => m.Quantite)
-        @Html.ValidationMessageFor(m => m.Quantite)
-        <br />
-        @Html.LabelFor(m => m.Date_heure_ajout)
-        @Html.TextBoxFor(m => m.Date_heure_ajout)
-        @Html.ValidationMessageFor(m => m.Date_heure_ajout)
-        <br />
-        @Html.LabelFor(m => m.Image)
-        @Html.TextBoxFor(m => m.Image)
-        @Html.ValidationMessageFor(m => m.Image)
-        <br />
-        <input type="submit" value="valider" class="btn btn-default" />
-    </fieldset>
+        <div class="form-horizontal">
+            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+            <div class="form-group">
+                @Html.LabelFor(m => m.NomProduit, htmlAttributes : new {@class = "control-label col-md-2"})
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.NomProduit, new { htmlAttributes = new { @class= "form-control" } })
+                    @Html.ValidationMessageFor(m => m.NomProduit,"", new {@class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Prix_Unite, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.Prix_Unite, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Prix_Unite,"", new {@class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Quantite, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.Quantite, new {htmlAttributes = new {@class ="form-control"}})
+                    @Html.ValidationMessageFor(m => m.Quantite, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Date_heure_ajout, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.Date_heure_ajout,new {htmlAttributes = new {@class ="form-control"}})
+                    @Html.ValidationMessageFor(m => m.Date_heure_ajout, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(m => m.Image,new {htmlAttributes = new {@class ="form-control"}})
+                    @Html.ValidationMessageFor(m => m.Image, "", new { @class = "text-danger" })
+                </div>
+            </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="valider" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+</fieldset>
+    
 
     <h2>Historique d'ajout de produits</h2>
 
     <div id="HistoProduit">
         @{
             Html.RenderAction("HistoriqueProduit");
-                }
+        }
     </div>
 
     @Ajax.ActionLink("Actualiser Historique", "HistoriqueProduit", new AjaxOptions
 {
-    InsertionMode =InsertionMode.Replace,
+    InsertionMode = InsertionMode.Replace,
     UpdateTargetId = "HistoProduit",
     HttpMethod = "GET"
 })

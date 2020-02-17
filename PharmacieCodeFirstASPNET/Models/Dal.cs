@@ -41,6 +41,7 @@ namespace PharmacieCodeFirstASPNET.Models
             client1.Prenom = client.Prenom;
             client1.Telephone = client.Telephone;
             client1.Email = client.Email;
+            client1.ConfirmEmail = client.ConfirmEmail;
             client1.Date_Naissance = client.Date_Naissance;
             client1.Password = EncodeMotDePasse(client.Password);
             Bdd.Clients.Add(client1);
@@ -135,10 +136,13 @@ namespace PharmacieCodeFirstASPNET.Models
         public void ModifierClient(Client client)
         {
             Client client1 = Bdd.Clients.FirstOrDefault(c => c.Id == client.Id);
+            string newpass = EncodeMotDePasse(client.Password);
             client1.Nom = client.Nom;
             client1.Prenom = client.Prenom;
             client1.Telephone = client.Telephone;
-            client1.Password = client.Password;
+            client.ConfirmEmail = client.ConfirmEmail;
+            client1.Date_Naissance = client.Date_Naissance;
+           // client1.Password = newpass;
             Bdd.SaveChanges();
         }
 
@@ -255,6 +259,54 @@ namespace PharmacieCodeFirstASPNET.Models
             Bdd.Clients.Add(client1);
             Bdd.SaveChanges();
             return client1.Id;
+        }
+
+        public void ModifierClient(int id,string nom, string prenom, string email, string confirmEmail, string date_Naissance, string password, string telephone)
+        {
+            Client client1 = Bdd.Clients.FirstOrDefault(c => c.Id == id);
+            client1.Nom = nom;
+            client1.Prenom = prenom;
+            client1.Telephone = telephone;
+            client1.Password = password;
+            client1.Email = email;
+            client1.ConfirmEmail = confirmEmail;
+            client1.Date_Naissance = date_Naissance;
+            Bdd.SaveChanges();
+        }
+
+        public bool MotDePassCorrect(string password)
+        {
+            string pass = EncodeMotDePasse(password);
+            Client client = Bdd.Clients.FirstOrDefault(c => c.Password == pass);
+            
+            if (client == null)
+            
+                return false;
+           
+            return true;
+        }
+
+        public void ModifierMdp(int id, string AncienPass, string NouveauPass)
+        {
+            Client client = Bdd.Clients.FirstOrDefault(c => c.Id == id);
+            string pass = EncodeMotDePasse(AncienPass);
+            string newpass = EncodeMotDePasse(NouveauPass);
+            if (client.Password == pass)
+            {
+                client.Password = newpass;
+                Bdd.SaveChanges();
+            }
+        }
+
+        public bool MotDePassClienExiste(int id, string pass)
+        {
+            Client cli = Bdd.Clients.FirstOrDefault(m => m.Id == id);
+            string password = EncodeMotDePasse(pass);
+            if (cli == null)
+                return false;
+            if (cli.Password != password)
+                return false;
+            return true;
         }
     }
 }
