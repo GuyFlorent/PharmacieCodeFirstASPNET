@@ -153,6 +153,7 @@
     <Compile Include="ViewModel\ClientModification.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
     <Compile Include="ViewModel\ProduitAchatViewModel.cs" />
+    <Compile Include="ViewModel\ProduitPanierViewModel.cs" />
     <Compile Include="ViewModel\ProduitSelectViewModel.cs" />
     <Compile Include="ViewModel\RechercheProduitViewModel.cs" />
   </ItemGroup>
@@ -208,6 +209,8 @@
     <Content Include="Views\Client\ModifierClient.cshtml" />
     <Content Include="Views\Client\ModifierPassword.cshtml" />
     <Content Include="Views\Achat\Index.cshtml" />
+    <Content Include="Views\Produit\DetailsProduitClient.cshtml" />
+    <Content Include="Views\Achat\HistoriqueCommandeClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

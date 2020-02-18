@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "HistoriqueCommandeClient";
+}
+
+<h2>HistoriqueCommandeClient</h2>
+
+<table class="table">
+    <tr>
+        <th>Date et heure </th>
+        <th>Nom produit </th>
+        <th>Quantité</th>
+        <th>Prix</th>
+    </tr>
+
+    @foreach (var liste in ViewBag.ListeAchats)
+    {
+        foreach (var list in ViewBag.NomProduit)
+        {
+        <tr>
+            <td>@ViewBag.HeureCommande</td>
+            <td>@list.NomProduit_stock</td>
+
+
+            <td>@liste.Quantite_Totale</td>
+            <td>@liste.Prix_Total</td>
+
+        </tr>
+        }
+    }
+</table>

@@ -31,6 +31,9 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>*@
+    <div>
+        @Html.ActionLink("Voir le panier", "Index", "Achat", null, new { @class = "btn btn-default" })
+    </div>
 
 <div >
     @*<h2>Liste des produits</h2>*@
@@ -47,13 +50,11 @@
     {
         <tr>
             <td>@Html.DisplayFor(modelListe => liste.NomProduit_stock)</td>
-            <td>@Html.DisplayFor(modelListe => liste.image_stok)</td>
+            <td><img src="@liste.image_stok" width="60" /></td>
             <td>@Html.DisplayFor(modelListe => liste.Prix_unite_stock) €</td>
             <td>@Html.DisplayFor(modelListe => liste.Quantite_Produit)</td>
-            <td>@using (Html.BeginForm("Index","Commande",FormMethod.Post))
-            {
-                <input type="submit" value="Passer la commande" class="btn btn-default"/>
-            }
+            <td>
+                 @Html.ActionLink("Ajouter au panier", "AjoutPanier","Achat", new { id = liste.Id }, new { @class = "btn btn-default"})
             </td>
              
         </tr>

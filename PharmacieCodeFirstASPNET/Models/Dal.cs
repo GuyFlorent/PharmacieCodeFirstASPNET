@@ -321,5 +321,15 @@ namespace PharmacieCodeFirstASPNET.Models
                 return false;
             return true;
         }
+
+        public List<Commande> ObtenirLaListeDesCommandes()
+        {
+            return Bdd.Commandes.ToList();
+        }
+
+        public List<Achat> ObtenirLaListeDesAchats()
+        {
+            return Bdd.Achats.ToList();
+        }
     }
 }

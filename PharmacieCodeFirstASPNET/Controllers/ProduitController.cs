@@ -94,6 +94,20 @@ namespace PharmacieCodeFirstASPNET.Controllers
             return View(produit);
         }
 
+        public ActionResult DetailsProduitClient(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Stock stock = dal.ObtenirTousLesStock().FirstOrDefault(s => s.Id == id);
+            Produit produit = dal.ObtenirTousLesProduits().FirstOrDefault(p => p.Stock == stock);
+
+            if (produit == null)
+                return HttpNotFound();
+            return View(produit);
+        }
+
         public ActionResult SupprimerProduit(int? id)
         {
             if (id == null)

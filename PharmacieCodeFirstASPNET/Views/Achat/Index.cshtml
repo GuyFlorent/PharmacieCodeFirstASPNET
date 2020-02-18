@@ -1,4 +1,4 @@
-﻿@model PharmacieCodeFirstASPNET.ViewModel.ProduitAchatViewModel
+﻿@using PharmacieCodeFirstASPNET.ViewModel
 
     @{
         ViewBag.Title = "Index";
@@ -9,27 +9,97 @@
 
 <p> Faites la selection de vos produis et valider</p>
 
-@Html.ValidationMessageFor(m =>m.ListeDesProduit)
+@*@Html.ValidationMessageFor(m =>m.ListeDesProduit)
 
 @using (Html.BeginForm())
 {
     for( int i =0; i< Model.ListeDesProduit.Count; i++)
-    {
-<div>
+    {*@
+@*<div>
     @Html.CheckBoxFor(m => m.ListeDesProduit[i].EstSelectionne, new { data_val = "true", data_val_verifListe = "Vous devez choisie au moins un produit" })
     @Html.LabelFor(m => m.ListeDesProduit[i].EstSelectionne, Model.ListeDesProduit[i].NomEtPrix_Unité)
     @Html.LabelFor(m => m.ListeDesProduit[i].EstSelectionne, Model.ListeDesProduit[i].Image)
     @Html.LabelFor(m => m.ListeDesProduit[i].EstSelectionne, Model.ListeDesProduit[i].Quantite_Stock_Restante)
-    @Html.HiddenFor(m => m.ListeDesProduit[i].id)
+    @Html.HiddenFor(m => m.ListeDesProduit[i].id)*@
     @*@Html.HiddenFor(m => m.ListeDesProduit[i].NomEtPrix_Unité)
     @Html.HiddenFor(m => m.ListeDesProduit[i].Quantite_Stock_Restante)*@
 
 
-</div>
+@*</div>
     }
 
     <input type="submit" value="Valider la commande"/>
-}
+}*@
+
+
+
+
+<table class="table">
+
+    <tr>
+        <th>Option</th>
+        <th>Nom du produit</th>
+        <th>Image</th>
+        <th>Prix à l'unité</th>
+        <th>Quantité</th>
+        <th>Prix Total du produit</th>
+    </tr>
+
+    @foreach( ProduitPanierViewModel panier in (List<ProduitPanierViewModel>)Session["achat"])
+    
+    {
+<tr>
+    <td>@Html.ActionLink("Supprimer", "SupprimeProduitPanier", new { id = panier.stock.Id })</td>
+    <td>@Html.ActionLink(@panier.stock.NomProduit_stock,"DetailsProduitClient","Produit", new { id = panier.stock.Id },null)</td>
+    <td>
+        <a href="@Url.Action("DetailsProduitClient","Produit", new { id = panier.stock.Id })">
+            <img src=@panier.stock.image_stok width="60" />
+        </a>
+    </td>
+    <td>@panier.stock.Prix_unite_stock €</td>
+    <td>@panier.Quantite</td>
+    <td>@(panier.stock.Prix_unite_stock * panier.Quantite)</td>
+</tr>
+    }
+    <tr >
+        <td align="right" colspan="6"> Prix Total de la commande</td>
+        <td>
+            @{ 
+                List<ProduitPanierViewModel> liste = (List<ProduitPanierViewModel>)Session["achat"];
+                var total = liste.Sum(s => s.stock.Prix_unite_stock * s.Quantite);
+            }
+            @total €
+        </td>
+
+    </tr>
+    <tr>
+        <td align="right" colspan="6"></td>
+        <td>
+            @using (Html.BeginForm())
+            {
+                <input type="submit" value="Valider la commande" class="btn btn-success" /> 
+            }
+        </td>
+    </tr>
+
+</table>
+@Html.ActionLink("Continuer les  achats", "Index", "Home",null, new { @class = "btn btn-primary" })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

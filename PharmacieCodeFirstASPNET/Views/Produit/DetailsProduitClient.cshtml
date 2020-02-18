@@ -1,15 +1,17 @@
 ﻿@model PharmacieCodeFirstASPNET.Models.Produit
 
 @{
-    ViewBag.Title = "Details Produit";
+    ViewBag.Title = "DetailsProduitClient";
 }
 
-<h2>Details du produit</h2>
+<h2>DetailsProduitClient</h2>
 
 <div>
     <h4>Produit</h4>
     <br />
     <dl class="dl-horizontal">
+        @*<dt>@Html.DisplayNameFor(model => model.Image)</dt>*@
+
         <dd>
             <img src=@Model.Image alt="image du @Model.NomProduit" width="150" />
         </dd>
@@ -34,7 +36,6 @@
 </div>
 
 <p>
-    @Html.ActionLink("Modifier", "ModifierProduit", new { id = Model.Id }, new { @class = "btn btn-default" })
-    @Html.ActionLink("Précédent", "AjoutProduit", null, new { @class="btn btn-default" })
-    @Html.ActionLink("Retour à l'acceuil", "Index", "Home", null, new { @class = "btn btn-default" })
+    @Html.ActionLink("Retour au panier", "Index", "Achat", null, new { @class="btn btn-primary"})
+    @Html.ActionLink("Continuer l'achat", "Index", "Home",null, new { @class="btn btn-success"})
 </p>

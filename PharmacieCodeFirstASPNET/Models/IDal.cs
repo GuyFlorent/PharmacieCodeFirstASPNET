@@ -41,10 +41,12 @@ namespace PharmacieCodeFirstASPNET.Models
         //Méthode pour la Commande
 
         int PasserCommande();
+        List<Commande> ObtenirLaListeDesCommandes();
 
         //Méthode pour l'Achat
 
         void AjouterAchat(int idCommande, int idClient, int idStock, int quantite);
         Achat achatParIdStoc(int idstock);
+        List<Achat> ObtenirLaListeDesAchats();
     }
 }
