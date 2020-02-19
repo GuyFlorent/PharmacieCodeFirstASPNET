@@ -14,7 +14,7 @@ namespace PharmacieCodeFirstASPNET.Models
         public void AjouterAchat(int idCommande, int idClient, int idStock, int quantite)
         {
             Stock stockById = Bdd.Stocks.FirstOrDefault(s => s.Id == idStock);
-            decimal prix = Bdd.Produits.FirstOrDefault(p => p.NomProduit == stockById.NomProduit_stock).Prix_Unite;
+            double prix = Bdd.Produits.FirstOrDefault(p => p.NomProduit == stockById.NomProduit_stock).Prix_Unite;
             if (stockById.Quantite_Produit >= quantite)
             {
                 
@@ -30,7 +30,15 @@ namespace PharmacieCodeFirstASPNET.Models
                     commande.Achats = new List<Achat>();
                 commande.Achats.Add(achat);
                 Bdd.SaveChanges();
+                DecrementeQuantiteStock(idStock, quantite);
             }
+        }
+
+        private void DecrementeQuantiteStock(int id, int quantiteAretirer)
+        {
+            Stock stock = Bdd.Stocks.FirstOrDefault(s => s.Id == id);
+            stock.Quantite_Produit -= quantiteAretirer;
+            Bdd.SaveChanges();
         }
 
         public void AjouterClient(Client client)

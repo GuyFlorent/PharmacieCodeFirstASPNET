@@ -42,6 +42,8 @@ namespace PharmacieCodeFirstASPNET.Controllers
             if (client == null)
                 return new HttpUnauthorizedResult();
             List<ProduitPanierViewModel> panier = (List<ProduitPanierViewModel>)Session["achat"];
+            if (panier.Count == 0)
+                return View();
             int id = dal.PasserCommande();
             //foreach (ProduitSelectViewModel produitSelectViewModel in viewModel.ListeDesProduit.Where(p => p.EstSelectionne))
             //{
@@ -82,12 +84,41 @@ namespace PharmacieCodeFirstASPNET.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        public ActionResult AugmenteQuantiteDansPanier(int id)
+        {
+            List<ProduitPanierViewModel> panier = (List<ProduitPanierViewModel>)Session["achat"];
+            int index = isExist(id);
+            if (index != -1)
+            {
+                panier[index].Quantite++;
+            }
+            return View("Index");
+        }
+
+        public ActionResult DiminueQuantiteDansPanier(int id)
+        {
+            List<ProduitPanierViewModel> panier = (List<ProduitPanierViewModel>)Session["achat"];
+            int index = isExist(id);
+            if (index != -1)
+            {
+                if (panier[index].Quantite > 1)
+                    panier[index].Quantite--;
+                else 
+                    panier.RemoveAt(index);
+                Session["achat"] = panier;
+            }
+            return View("Index");
+        }
+
+
         public ActionResult SupprimeProduitPanier(int id)
         {
             List<ProduitPanierViewModel> panier = (List<ProduitPanierViewModel>)Session["achat"];
             int index = isExist(id);
             panier.RemoveAt(index);
             Session["achat"] = panier;
+
             return RedirectToAction("Index");
         }
 
@@ -103,18 +134,15 @@ namespace PharmacieCodeFirstASPNET.Controllers
         public ActionResult HistoriqueCommandeClient()
         {
             Client client = dal.ObtenirClient(HttpContext.User.Identity.Name);
-            List<Commande> listeCommande = dal.ObtenirLaListeDesCommandes().Where(c => c.Client == client).ToList();
-            foreach(Commande com in listeCommande)
+           
+            HistoriqueClientViewModel historique = new HistoriqueClientViewModel()
             {
-                ViewBag.HeureCommande = com.heure_commande;
-                ViewBag.ListeAchats = com.Achats;
-                foreach(var acha in com.Achats)
-                {
-                    List<Stock> hisostock = dal.ObtenirTousLesStock().Where(s => s.Id ==acha.Stock.Id).ToList();
-                    ViewBag.NomProduit = hisostock;
-                }
-            }
-            return View();
+               
+                ListeCommande = dal.ObtenirLaListeDesCommandes().Where(c => c.Client == client).OrderByDescending(d => d.Id).ToList()
+            
+            };
+            
+            return View(historique);
         }
     }
 }

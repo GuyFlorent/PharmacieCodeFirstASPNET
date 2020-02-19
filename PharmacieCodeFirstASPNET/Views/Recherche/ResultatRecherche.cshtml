@@ -16,12 +16,19 @@
     </tr>
     @foreach (var prod in Model.ListeProduits)
     {
-        <tr>
-            <td>@Html.DisplayFor(modelProd => prod.NomProduit_stock)</td>
-            <td>@Html.DisplayFor(modelProd => prod.image_stok)</td>
-            <td>@Html.DisplayFor(modelProd => prod.Prix_unite_stock)</td>
-            <td>@Html.DisplayFor(modelProd => prod.Quantite_Produit)</td>
-        </tr>
+<tr>
+    <td>@Html.ActionLink(prod.NomProduit_stock, "DetailsProduitClient", "Produit", new { id = prod.Id }, null)</td>
+    <td>
+        <a href="@Url.Action("DetailsProduitClient","Produit", new { id = prod.Id })">
+            <img src=@prod.image_stok alt="Image @prod.NomProduit_stock" width="60" />
+        </a>
+    </td>
+    <td>@Html.DisplayFor(modelProd => prod.Prix_unite_stock) €</td>
+    <td>@Html.DisplayFor(modelProd => prod.Quantite_Produit)</td>
+    <td>
+        @Html.ActionLink("Ajouter au panier", "AjoutPanier", "Achat", new { id = prod.Id }, new { @class = "btn btn-default" })
+    </td>
+</tr>
     }
 </table>
  }

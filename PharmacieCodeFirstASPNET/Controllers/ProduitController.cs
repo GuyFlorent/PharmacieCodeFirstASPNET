@@ -88,7 +88,8 @@ namespace PharmacieCodeFirstASPNET.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Produit produit = dal.ObtenirTousLesProduits().FirstOrDefault(p => p.Id == id);
-
+            Stock stock = dal.ObtenirTousLesStock().FirstOrDefault(s => s.NomProduit_stock ==produit.NomProduit);
+            produit.Quantite = produit.Stock.Quantite_Produit;
             if (produit == null)
                 return HttpNotFound();
             return View(produit);
@@ -102,7 +103,7 @@ namespace PharmacieCodeFirstASPNET.Controllers
             }
             Stock stock = dal.ObtenirTousLesStock().FirstOrDefault(s => s.Id == id);
             Produit produit = dal.ObtenirTousLesProduits().FirstOrDefault(p => p.Stock == stock);
-
+            produit.Quantite = produit.Stock.Quantite_Produit;
             if (produit == null)
                 return HttpNotFound();
             return View(produit);

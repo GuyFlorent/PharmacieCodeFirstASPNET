@@ -49,7 +49,12 @@
     
     {
 <tr>
-    <td>@Html.ActionLink("Supprimer", "SupprimeProduitPanier", new { id = panier.stock.Id })</td>
+    <td>@Html.ActionLink("Supprimer", "SupprimeProduitPanier", new { id = panier.stock.Id })
+        <p>
+            @Html.ActionLink(" .", "AugmenteQuantiteDansPanier", "Achat", new { id = panier.stock.Id }, new { @class = "btn btn-success glyphicon glyphicon-plus-sign" })
+            @Html.ActionLink(" .", "DiminueQuantiteDansPanier", "Achat", new { id = panier.stock.Id }, new { @class = "btn btn-danger glyphicon glyphicon-minus-sign" })
+        </p>
+    </td>
     <td>@Html.ActionLink(@panier.stock.NomProduit_stock,"DetailsProduitClient","Produit", new { id = panier.stock.Id },null)</td>
     <td>
         <a href="@Url.Action("DetailsProduitClient","Produit", new { id = panier.stock.Id })">
@@ -75,9 +80,9 @@
     <tr>
         <td align="right" colspan="6"></td>
         <td>
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Index", "Achat", FormMethod.Post))
             {
-                <input type="submit" value="Valider la commande" class="btn btn-success" /> 
+                <input type="submit" value="Valider la commande" class="btn btn-success" />
             }
         </td>
     </tr>

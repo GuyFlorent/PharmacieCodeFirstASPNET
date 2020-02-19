@@ -11,6 +11,6 @@ namespace PharmacieCodeFirstASPNET.Models
         public virtual Stock Stock  { get; set; }
         
         public int Quantite_Totale { get; set; }
-        public decimal Prix_Total { get; set; }
+        public double Prix_Total { get; set; }
     }
 }

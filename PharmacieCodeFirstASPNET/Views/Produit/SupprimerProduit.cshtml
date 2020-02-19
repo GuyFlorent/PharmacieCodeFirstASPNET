@@ -10,10 +10,9 @@
 <h4>Ëtes vous sûr de vouloir supprimé?</h4>
 <br />
 <dl class="dl-horizontal">
-    <dt>@Html.DisplayNameFor(model => model.Image)</dt>
-
-    <dd>@Html.DisplayFor(m => m.Image)</dd>
-
+    <dd>
+        <img src=@Model.Image alt="image du @Model.NomProduit" width="150" />
+    </dd>
     <dt>@Html.DisplayNameFor(model => model.NomProduit)</dt>
 
     <dd>@Html.DisplayFor(m => m.NomProduit)</dd>
@@ -34,6 +33,6 @@
 </div>
 @using (Html.BeginForm())
 {
-    <input type="submit" value="Supprimer" class="btn btn-default" /> 
+    <input type="submit" value="Supprimer" class="btn btn-danger" /> 
     Html.ActionLink("retour à la liste", "AjouterProduit");
 }

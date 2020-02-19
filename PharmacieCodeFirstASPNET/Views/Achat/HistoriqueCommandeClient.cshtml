@@ -1,4 +1,5 @@
-﻿
+﻿@model PharmacieCodeFirstASPNET.ViewModel.HistoriqueClientViewModel
+
 @{
     ViewBag.Title = "HistoriqueCommandeClient";
 }
@@ -11,21 +12,57 @@
         <th>Nom produit </th>
         <th>Quantité</th>
         <th>Prix</th>
+        <th>Prix total</th>
     </tr>
 
-    @foreach (var liste in ViewBag.ListeAchats)
+    @foreach (var li in Model.ListeCommande)
     {
-        foreach (var list in ViewBag.NomProduit)
-        {
-        <tr>
-            <td>@ViewBag.HeureCommande</td>
-            <td>@list.NomProduit_stock</td>
+<tr>
+    <td>
+
+        @li.heure_commande
+
+    </td>
+
+    <td>
+        <table>
+            @foreach (var la in li.Achats)
+            {
+                <tr>
+                    <td>@Html.ActionLink(@la.Stock.NomProduit_stock, "DetailsProduitClient", "Produit", new { id = la.Stock.Id }, null)</td>
+                </tr>
+            }
+        </table>
+    </td>
 
 
-            <td>@liste.Quantite_Totale</td>
-            <td>@liste.Prix_Total</td>
+    <td>
+        <table>
+            @foreach (var l in li.Achats)
+            {
+                <tr>
+                    <td>@l.Quantite_Totale</td>
+                </tr>
+            }
+        </table>
+    </td>
+    <td>
+        <table>
+            @foreach (var l in li.Achats)
+            {
+                <tr>
+                    <td>@l.Prix_Total €</td>
+                </tr>
+            }
+        </table>
+    </td>
+    <td>
+       
+        @li.Achats.Sum(p =>p.Prix_Total) €
+    </td>
 
-        </tr>
-        }
+</tr>
     }
-</table>
+
+    </table>
+@Html.ActionLink("Retour à l'acceuil", "Index","Home",null, new { @class="btn btn-primary" })

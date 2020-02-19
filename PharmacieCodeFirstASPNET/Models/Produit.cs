@@ -17,7 +17,7 @@ namespace PharmacieCodeFirstASPNET.Models
         public string NomProduit { get; set; }
         [Required]
         [Display(Name = "Prix à l'unité")]
-        public decimal Prix_Unite { get; set; }
+        public double Prix_Unite { get; set; }
         [Required]
         [Display(Name ="Quantité")]
         public int Quantite { get; set; }
