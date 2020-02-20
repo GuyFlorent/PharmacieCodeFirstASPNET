@@ -154,6 +154,7 @@
     <Compile Include="ViewModel\ClientLoginViewModel.cs" />
     <Compile Include="ViewModel\ClientModification.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
+    <Compile Include="ViewModel\CoordonnerViewModel.cs" />
     <Compile Include="ViewModel\HistoriqueClientViewModel.cs" />
     <Compile Include="ViewModel\ProduitAchatViewModel.cs" />
     <Compile Include="ViewModel\ProduitPanierViewModel.cs" />
@@ -197,7 +198,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Produit\AjoutProduit.cshtml" />
@@ -215,6 +215,8 @@
     <Content Include="Views\Achat\Index.cshtml" />
     <Content Include="Views\Produit\DetailsProduitClient.cshtml" />
     <Content Include="Views\Achat\HistoriqueCommandeClient.cshtml" />
+    <Content Include="Views\Home\Mete.cshtml" />
+    <Content Include="Views\Home\Meteo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

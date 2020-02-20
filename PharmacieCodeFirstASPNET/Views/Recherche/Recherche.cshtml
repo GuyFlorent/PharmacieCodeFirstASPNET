@@ -11,18 +11,18 @@
     HttpMethod = "GET",
     InsertionMode = InsertionMode.Replace,
     UpdateTargetId = "resultats",
-    OnFailure ="ErreurRecherche",
+    OnFailure = "ErreurRecherche",
     LoadingElementId = "chargement"
 }))
 {
-    @Html.TextBoxFor(r =>r.Recherche)
+    @Html.TextBoxFor(r => r.Recherche)
     <img id="chargement" src="~/Content/Image/ajax-loader (1).gif" style="display:none" alt="Chargement en cours..." />
     <input type="submit" value="Rechercher produit" />
 
-   <div id="resultats">
-       @{ Html.RenderAction("ResultatRecherche", new { rechercheProduitViewModel = Model });}
-   </div>
-    
+    <div id="resultats">
+        @{ Html.RenderAction("ResultatRecherche", new { rechercheProduitViewModel = Model });}
+    </div>
+
 }
 
 <script type="text/javascript">
@@ -30,3 +30,13 @@
         $("#resultats").html("Une erreur s'est produite lors de la recherche, veuillez réessayer ...");
     }
 </script>
+
+@section Menu
+    {
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+        <li >@Html.ActionLink("Ajouter les produits", "AjoutProduit", "Produit")</li>
+        <li class="selectionne">@Html.ActionLink("Recherche produit", "Recherche", "Recherche")</li>
+        <li>@Html.ActionLink("Profil", "Index", "Client")</li>
+    </ul>
+}

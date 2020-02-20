@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
-   
+
     <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <title>@ViewBag.Title - Ma PHARMACIE JE SUIS</title>
     @Styles.Render("~/Content/css")
@@ -25,14 +25,24 @@
                 @Html.ActionLink("PHARMACIE ETHODET", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Ajouter les produits", "AjoutProduit", "Produit")</li>
-                    <li>@Html.ActionLink("Recherche produit", "Recherche", "Recherche")</li>
-                    <li>@Html.ActionLink("Profil", "Index", "Client")</li>
-                </ul>
+                @if (IsSectionDefined("Menu"))
+                {
+                    @RenderSection("Menu")
+                }
+                else
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Ajouter les produits", "AjoutProduit", "Produit")</li>
+                        <li>@Html.ActionLink("Recherche produit", "Recherche", "Recherche")</li>
+                        <li>@Html.ActionLink("Profil", "Index", "Client")</li>
+                    </ul>
+                }
             </div>
         </div>
+    </div>
+    <div id="InfoMeteo">
+       
     </div>
     <div class="container body-content">
         @RenderBody()
@@ -47,3 +57,58 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+
+
+<script type="text/javascript">
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(useLocation);
+        }
+    };
+
+    function useLocation(position) {
+        //console.log('?longitude=' + position.coords.longitude + '&latitude=' + position.coords.latitude);
+        var lattitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+            $.ajax({
+                url: '@Url.Action("Meteo","Home")?lon=' + longitude + '&lat=' + lattitude,
+            type: 'GET',
+            dataType: 'html',
+            success: function (result) {
+                $('#InfoMeteo').html(result);
+                }
+
+        });
+    }
+    
+
+    var timer;
+    
+
+    $(function () {
+        getLocation();
+        timer = window.setInterval("getLocation()", 60000)
+        $('#InfoMeteo').click(function () {
+            $(this).fadeOut(1000);
+    });
+    });
+</script>
+
+<script type="text/javascript">
+
+    function () {
+        $('InfoMeteo').css({
+        width : '50px',
+        height : '50px',
+        border : '1px solid black',
+        marginTop : '10px'
+    });
+
+       $('#InfoMeteo').click(function(){
+        $(this).hide(600);
+    });
+    }
+</script>

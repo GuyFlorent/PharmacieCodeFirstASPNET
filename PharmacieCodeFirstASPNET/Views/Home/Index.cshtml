@@ -64,18 +64,16 @@
 
 </div>
 
-<div class="row">
-    <button id="locationButton" type="button" class="btn btn-default" onclick="getLocation()">Use Actual Location</button>
-</div>
+@section Menu
+    {
+    <ul class="nav navbar-nav">
+        <li class="selectionne">@Html.ActionLink("Accueil", "Index", "Home")</li>
+        <li>@Html.ActionLink("Ajouter les produits", "AjoutProduit", "Produit")</li>
+        <li>@Html.ActionLink("Recherche produit", "Recherche", "Recherche")</li>
+        <li>@Html.ActionLink("Profil", "Index", "Client")</li>
+    </ul>
+}
 
-<script type="text/javascript">
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(useLocation);
-        }
-    };
 
-    function useLocation(position) {
-        console.log('?longitude=' + position.coords.longitude + '&latitude=' + position.coords.latitude);
-    };
-</script>
+
+

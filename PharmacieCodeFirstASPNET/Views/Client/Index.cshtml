@@ -35,12 +35,12 @@
         </dd>
 
         @*<dt>
-            @Html.DisplayNameFor(model => model.ConfirmEmail)
-        </dt>
+                @Html.DisplayNameFor(model => model.ConfirmEmail)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ConfirmEmail)
-        </dd>*@
+            <dd>
+                @Html.DisplayFor(model => model.ConfirmEmail)
+            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.Password)
@@ -71,8 +71,18 @@
 <p>
     @Html.ActionLink("Modifier les informations", "ModifierClient", new { id = Model.Id }) |
     @Html.ActionLink("Retour à la listes", "Index", "Home")|
-    @Html.ActionLink("Deconnexion", "Deconnexion", "Login", null , new {@class= "btn btn-primary" })
+    @Html.ActionLink("Deconnexion", "Deconnexion", "Login", null, new { @class = "btn btn-primary" })
 </p>
 <p align="right">
     @Html.ActionLink("Voir historique commande", "HistoriqueCommandeClient", "Achat", null, new { @class = "btn btn-primary" })
 </p>
+
+@section Menu
+    {
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+        <li>@Html.ActionLink("Ajouter les produits", "AjoutProduit", "Produit")</li>
+        <li>@Html.ActionLink("Recherche produit", "Recherche", "Recherche")</li>
+        <li class="selectionne">@Html.ActionLink("Profil", "Index", "Client")</li>
+    </ul>
+}
